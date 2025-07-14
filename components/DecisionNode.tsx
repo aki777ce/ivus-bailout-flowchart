@@ -50,7 +50,6 @@ const DecisionNode: React.FC<DecisionNodeProps> = ({ node, onChoice }) => {
 
         {node.actions && node.actions.length > 0 && (
           <div className="mb-6">
-            <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3">対応・処置</h3>
             <ul className="space-y-3">
               {node.actions.map((action, index) => (
                 <ActionListItem key={index} action={action} onShowImage={handleShowImage} />
@@ -60,9 +59,19 @@ const DecisionNode: React.FC<DecisionNodeProps> = ({ node, onChoice }) => {
         )}
 
         {node.question && (
-          <p className="text-lg font-semibold text-slate-700 my-6 p-4 bg-slate-100 rounded-lg text-center">
-            {node.question}
-          </p>
+          <div className="my-6 p-4 bg-slate-100 rounded-lg flex items-center justify-center text-center">
+            <p className="text-lg font-semibold text-slate-700">
+              {node.question}
+            </p>
+            {node.questionImage && (
+              <button 
+                onClick={() => handleShowImage(node.questionImage!)}
+                className="ml-4 px-3 py-1 text-sm bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors duration-200"
+              >
+                表示
+              </button>
+            )}
+          </div>
         )}
 
         {node.choices && node.choices.length > 0 && (

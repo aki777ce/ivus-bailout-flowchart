@@ -5,6 +5,13 @@ import { FlowchartNode, NodeType, BulletColor, ChoiceStyle } from '../types';
 // these images from the root directory.
 const imageCoreGWExchange = '/images/image-core-gw-exchange.png';
 const imageBalloonDilatationDoubleGc = '/images/balloon_dilatation_double_gc.png';
+const imageCatheterAndStentDetails = '/images/catheter_and_stent_details.png';
+const imageLoop = '/images/loop.png';
+const imageCompleteStuck = '/images/complete stuck.png';
+const image6FGc = '/images/6F GC.png';
+const imageKnuckle = '/images/knuckle.png';
+const imageRotation = '/images/rotation.png';
+const imageGec = '/images/gec.png';
 
 export const flowchartData: Record<string, FlowchartNode> = {
   START: {
@@ -66,12 +73,14 @@ export const flowchartData: Record<string, FlowchartNode> = {
       { text: '抜去不可', nextId: 'SURGERY', style: ChoiceStyle.DANGER },
     ],
   },
+
   // Removal Stack Flow
   STACK_REMOVE: {
     id: 'STACK_REMOVE',
     type: NodeType.DECISION,
-    title: '抜去時スタック - ステントストラットのエグジットポート嵌頓 or IVUSワイヤたわみ・絡み',
-    question: 'IVUSワイヤのたわみ・絡み',
+    title: '抜去時スタック',
+    question: 'IVUSワイヤのたわみ・絡みがある？',
+    questionImage: imageLoop,
     choices: [
       { text: 'あり', nextId: 'IVUS_WIRE_FLEX_YES', style: ChoiceStyle.SECONDARY },
       { text: 'なし', nextId: 'IVUS_WIRE_FLEX_NO', style: ChoiceStyle.SECONDARY },
@@ -117,11 +126,11 @@ export const flowchartData: Record<string, FlowchartNode> = {
     type: NodeType.DECISION,
     title: 'IVUSカテが進まない',
     actions: [
-      { text: 'イメージコアのGW交換', color: BulletColor.ORANGE, image: imageCoreGWExchange },
-      { text: 'GEC挿入', color: BulletColor.GREEN },
-      { text: '7Fr以上GC or ダブルGC使用', color: BulletColor.GREEN },
+      { text: 'イメージコアのGW交換', color: BulletColor.GREEN, image: imageCoreGWExchange },
+      { text: 'GEC挿入', color: BulletColor.ORANGE },
+      { text: '7Fr以上GC or ダブルGC使用', isHeader: true },
       { text: 'バルーン拡張', color: BulletColor.ORANGE },
-      { text: '力づくカテ抜去', color: BulletColor.RED },
+      { text: '力づくカテ抜去', color: BulletColor.RED, image: imageCompleteStuck },
     ],
     question: '上記対応後、遠位部に進む？',
     choices: [
@@ -134,8 +143,15 @@ export const flowchartData: Record<string, FlowchartNode> = {
     type: NodeType.DECISION,
     title: 'IVUSカテが進む',
     actions: [
-        { text: '7Fr以上のGC使用もしくは小径MC使用可能', color: BulletColor.GREEN },
-        { text: 'MC・バルーンのエグジットポート塞ぎ', color: BulletColor.GREEN },
+        { text: '7Fr以上のGC使用もしくは小径MC使用可能', isHeader: true },
+        { text: 'MC・バルーンのエグジットポート塞ぎ', color: BulletColor.GREEN, image: imageCatheterAndStentDetails },
+        {
+          text: '6Fr.のGC使用',
+          isHeader: true,
+          subItems: [
+            { text: 'MCのエグジットポート塞ぎ', color: BulletColor.GREEN, image: image6FGc },
+          ]
+        },
     ],
     question: '対応は可能・成功しましたか？',
     choices: [
@@ -148,8 +164,15 @@ export const flowchartData: Record<string, FlowchartNode> = {
     type: NodeType.DECISION,
     title: '遠位部に進んだ',
      actions: [
-        { text: '7Fr以上のGC使用もしくは小径MC使用可能', color: BulletColor.GREEN },
-        { text: 'MC・バルーンのエグジットポート塞ぎ', color: BulletColor.GREEN },
+        { text: '7Fr以上のGC使用もしくは小径MC使用可能', isHeader: true },
+        { text: 'MC・バルーンのエグジットポート塞ぎ', color: BulletColor.GREEN, image: imageCatheterAndStentDetails },
+        {
+          text: '6Fr.のGC使用',
+          isHeader: true,
+          subItems: [
+            { text: 'MCのエグジットポート塞ぎ', color: BulletColor.GREEN, image: image6FGc },
+          ]
+        },
     ],
     question: '対応は可能・成功しましたか？',
     choices: [
@@ -162,8 +185,8 @@ export const flowchartData: Record<string, FlowchartNode> = {
     type: NodeType.DECISION,
     title: 'ポート塞ぎが不可能・不成功',
     actions: [
-        { text: 'ナックルワイヤ', color: BulletColor.ORANGE },
-        { text: 'イメージコアのGW交換＋回転', color: BulletColor.ORANGE, image: imageCoreGWExchange },
+        { text: 'ナックルワイヤ', color: BulletColor.ORANGE, image: imageKnuckle },
+        { text: 'イメージコアのGW交換＋回転', color: BulletColor.ORANGE, image: imageRotation },
     ],
     question: '対応は可能・成功しましたか？',
     choices: [
@@ -174,11 +197,13 @@ export const flowchartData: Record<string, FlowchartNode> = {
   LOW_RISK_DEFORMATION: {
     id: 'LOW_RISK_DEFORMATION',
     type: NodeType.DECISION,
-    title: 'GEC挿入でのステント変形リスクが小さい',
+    title: '対応・処置',
     actions: [
+      { text: 'GEC挿入でのステント変形リスクが小さい', isHeader: true },
       { 
         text: 'GEC挿入', 
-        color: BulletColor.GREEN 
+        color: BulletColor.GREEN,
+        image: imageGec
       },
       {
         isHeader: true,
@@ -197,7 +222,7 @@ export const flowchartData: Record<string, FlowchartNode> = {
       },
       { text: '上記手段が不成功もしくは適応不可', isHeader: true, subItems: [
           { text: 'IVUSワイヤ抜去', color: BulletColor.ORANGE },
-          { text: '力づくカテ抜去', color: BulletColor.RED },
+          { text: '力づくカテ抜去', color: BulletColor.RED, image: imageCompleteStuck },
       ] },
     ],
     question: '上記対応後、抜去可能？',

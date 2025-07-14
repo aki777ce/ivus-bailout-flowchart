@@ -37,5 +37,6 @@ export interface FlowchartNode {
   description?: string;
   actions?: ActionItem[];
   question?: string;
+  questionImage?: string;
   choices?: Choice[];
 }
