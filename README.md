@@ -9,52 +9,56 @@
 - **レスポンシブデザイン**: デスクトップPCからタブレット、スマートフォンまで、様々なデバイスで快適に利用できます。
 - **明確な結果表示**: フローの最後には、「抜去成功」または「外科処置」といった最終的な結果が分かりやすく表示されます。
 
+## 🚀 デプロイ
+
+このアプリケーションはNetlifyにデプロイされており、以下のURLからアクセスできます。
+
+[https://ivus-bailout-flowchart.windsurf.build](https://ivus-bailout-flowchart.windsurf.build)
+
 ## 🛠️ 使用技術
 
-- **フロントエンド**: [React](https://react.dev/) (v19) with TypeScript
-- **スタイリング**: [Tailwind CSS](https://tailwindcss.com/) (CDN経由)
-- **ビルドツール**: なし (ESMと`importmap`を利用したモダンなビルドレス構成)
+- **フロントエンド**: [React](https://react.dev/) with TypeScript
+- **ビルドツール**: [Vite](https://vitejs.dev/)
+- **スタイリング**: [Tailwind CSS](https://tailwindcss.com/)
+- **デプロイ**: [Netlify](https://www.netlify.com/)
 
-このプロジェクトは、`npm install`やビルドプロセスを必要とせず、ブラウザだけで直接動作するように作られています。
+## 💻 ローカルでの実行方法
 
-## 🚀 ローカルでの実行方法
-
-このアプリケーションを実行するのに複雑な手順は不要です。
-
-1.  **リポジトリをクローンまたはダウンロードします。**
+1.  **リポジトリをクローンし、ディレクトリに移動します。**
     ```bash
-    git clone [リポジトリURL]
+    git clone https://github.com/your-username/ivus-bailout-flowchart.git
+    cd ivus-bailout-flowchart
     ```
-2.  **プロジェクトのルートディレクトリで、ローカルウェブサーバーを起動します。**
-    Pythonがインストールされている場合、以下のコマンドが簡単です。
+
+2.  **必要なパッケージをインストールします。**
     ```bash
-    # Python 3.x
-    python -m http.server
+    npm install
     ```
-    VS Codeをお使いの場合は、[Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)拡張機能を利用して`index.html`を右クリックし、「Open with Live Server」を選択するのが便利です。
 
-3.  **ブラウザで表示されたURL（例: `http://localhost:8000`）にアクセスします。**
+3.  **開発サーバーを起動します。**
+    ```bash
+    npm run dev
+    ```
 
-以上でアプリケーションが起動します。
+4.  **ブラウザで `http://localhost:5173` にアクセスします。**
 
 ## 📂 プロジェクト構造
 
 ```
 .
-├── images/
-│   ├── balloon_dilatation_double_gc.png
-│   └── image-core-gw-exchange.png
-├── components/
-│   ├── ActionListItem.tsx       # 各処置項目を表示するコンポーネント
-│   ├── DecisionNode.tsx         # 質問と選択肢を表示するノード
-│   ├── ImageModal.tsx           # 画像表示用モーダル
-│   └── ResultNode.tsx           # 最終結果を表示するノード
-├── constants/
-│   └── flowchartData.ts         # フローチャートの全データ構造を定義
-├── App.tsx                      # アプリケーションのメインコンポーネント
-├── index.html                   # エントリーポイントのHTMLファイル
-├── index.tsx                    # Reactのルートをマウントするスクリプト
-├── metadata.json                # アプリケーションのメタデータ
-├── README.md                    # このファイル
-└── types.ts                     # プロジェクト全体で使われる型定義
+├── public/
+│   └── images/              # 画像などの静的ファイル
+├── src/
+│   ├── components/          # Reactコンポーネント
+│   ├── constants/           # フローチャートのデータ
+│   ├── App.tsx              # アプリケーションのメインコンポーネント
+│   └── index.tsx            # Reactのルートをマウントするスクリプト
+├── .gitignore
+├── index.html                 # エントリーポイントのHTML
+├── netlify.toml               # Netlifyデプロイ設定
+├── package.json               # プロジェクト設定と依存関係
+├── README.md                  # このファイル
+├── tsconfig.json              # TypeScript設定
+├── types.ts                   # 型定義
+└── vite.config.ts             # Vite設定
 ```
