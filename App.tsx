@@ -3,22 +3,22 @@ import { flowchartData } from './constants/flowchartData';
 import { FlowchartNode, NodeType } from './types';
 import DecisionNode from './components/DecisionNode';
 import ResultNode from './components/ResultNode';
+import { NODE_IDS } from './constants/nodeIds';
 
 const App: React.FC = () => {
-  const [currentNodeId, setCurrentNodeId] = useState<string>('START');
+  const [currentNodeId, setCurrentNodeId] = useState<string>(NODE_IDS.START);
 
   const handleChoice = useCallback((nextId: string) => {
     if (flowchartData[nextId]) {
       setCurrentNodeId(nextId);
     } else {
       console.error(`Node with id ${nextId} not found!`);
-      // Fallback to start
-      setCurrentNodeId('START');
+      setCurrentNodeId(NODE_IDS.START);
     }
   }, []);
 
   const handleRestart = useCallback(() => {
-    setCurrentNodeId('START');
+    setCurrentNodeId(NODE_IDS.START);
   }, []);
 
   const currentNode: FlowchartNode = flowchartData[currentNodeId];

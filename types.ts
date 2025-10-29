@@ -1,4 +1,3 @@
-
 export enum NodeType {
   DECISION = 'DECISION',
   OUTCOME = 'OUTCOME',
@@ -30,13 +29,22 @@ export interface Choice {
   style: ChoiceStyle;
 }
 
-export interface FlowchartNode {
+export interface BaseNode {
   id: string;
-  type: NodeType;
   title: string;
   description?: string;
+}
+
+export interface FlowchartDecisionNode extends BaseNode {
+  type: NodeType.DECISION;
   actions?: ActionItem[];
   question?: string;
   questionImage?: string;
   choices?: Choice[];
 }
+
+export interface FlowchartOutcomeNode extends BaseNode {
+  type: NodeType.OUTCOME;
+}
+
+export type FlowchartNode = FlowchartDecisionNode | FlowchartOutcomeNode;
